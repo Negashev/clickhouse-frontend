@@ -66,7 +66,7 @@
             } else {
                 query = sql;
             }
-            var url = 'http://' + connection.host +
+            var url = (connection.ssl ? 'https://' : 'http://') + connection.host +
                 '/?query=' + encodeURIComponent(query);
             if (connection.login) {
                 url += '&user=' + connection.login;
