@@ -1,3 +1,10 @@
 FROM nginx:stable-alpine
-ADD ./docs /usr/share/nginx/html
-RUN echo 'server {  listen 80;  server_name localhost;  root /usr/share/nginx/html;  location / {    try_files $uri @rewrites;  }  location @rewrites {    rewrite ^(.+)$ /index.html last;  }}' > /etc/nginx/conf.d/clickhouse.conf
+
+ENV ALLOW_IP 0.0.0.0
+ENV DOLLAR $
+
+ADD nginx.template /etc/nginx/conf.d/default.template
+
+ADD docs /usr/share/nginx/html
+
+CMD /bin/sh -c "envsubst < /etc/nginx/conf.d/default.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
