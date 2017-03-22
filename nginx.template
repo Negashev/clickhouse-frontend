@@ -23,13 +23,13 @@ server  {
     try_files ${DOLLAR}uri @rewrites;
   }
   location @rewrites {
-    set ${DOLLAR}allow false;
-    if (${DOLLAR}http_x_forwarded_for = "${ALLOW_IP}") {
-      set ${DOLLAR}allow true;
-    }
-    if (${DOLLAR}allow = false) {
-      return 403;
-    }
+    #set ${DOLLAR}allow false;
+    #if (${DOLLAR}http_x_forwarded_for = "${ALLOW_IP}") {
+    #  set ${DOLLAR}allow true;
+    #}
+    #if (${DOLLAR}allow = false) {
+    #  return 403;
+    #}
     rewrite ^(.+)${DOLLAR} /index.html last;
   }
 }
